@@ -1,0 +1,17 @@
+version: "3.9"  #version of docker compose syntax we will use
+
+# docer compose consist of one or more servises that are needed by our application 
+
+services:   # this service is for running docker file 
+  app:
+    build:
+      context: .   #use the current dir for this service as context
+      args:
+        - DEV=true  #if we are running using doc-compose we have set the arguments as true 
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app   # we use this so that when we make changes to our local code these changes get reflected in our container in real time
+    command: >            #command to run the service
+      sh -c "python manage.py runserver 0.0.0.0:8000"    
+
